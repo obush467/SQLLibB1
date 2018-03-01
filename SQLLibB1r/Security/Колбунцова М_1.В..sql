@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [Колбунцова М.В.]
+    WITH PASSWORD = N'BvSgrv5rCcn{jephxtca|y9pmsFT7_&#$!~<~ kwmf??qgvr', SID = 0x3D8FF88CAAAB834D8E83A7BB6E7FC502, DEFAULT_DATABASE = [GBUMATC], DEFAULT_LANGUAGE = [русский], CHECK_POLICY = OFF;
+

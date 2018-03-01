@@ -1,0 +1,8 @@
+﻿CREATE TABLE [fias_Moscow].[AddressObjectType] (
+    [LEVEL]    INT           NOT NULL,
+    [SCNAME]   NVARCHAR (10) NOT NULL,
+    [SOCRNAME] NVARCHAR (50) NOT NULL,
+    [KOD_T_ST] VARCHAR (4)   NOT NULL,
+    CONSTRAINT [PK_AddressObjectType] PRIMARY KEY CLUSTERED ([LEVEL] ASC, [SCNAME] ASC, [SOCRNAME] ASC, [KOD_T_ST] ASC)
+);
+

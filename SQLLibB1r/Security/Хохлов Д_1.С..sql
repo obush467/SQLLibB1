@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [Хохлов Д.С.]
+    WITH PASSWORD = N'vjgrvrkcn;{|jephxtFca|gymsFT7_&#$!~<FIpkwfqgvrim', SID = 0x750644C65936EB4187449B7C08933245, DEFAULT_DATABASE = [GBUMATC], DEFAULT_LANGUAGE = [русский], CHECK_POLICY = OFF;
+

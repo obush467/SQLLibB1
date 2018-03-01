@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [Тимофеев Д.А.]
+    WITH PASSWORD = N'vgrvr1cn{jephxtcCaa|y^v{msFT7_&#$!~<pkwefqgvriDm', SID = 0xE29B329B2165174B98B50523606D80CC, DEFAULT_DATABASE = [GBUMATC], DEFAULT_LANGUAGE = [русский], CHECK_POLICY = OFF;
+

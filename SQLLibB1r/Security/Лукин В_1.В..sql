@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [Лукин В.В.]
+    WITH PASSWORD = N'vgrUvrMcc%nl{jeph<xtca|ymsFT7_&#$!~<pkwfqgvxrimW', SID = 0x97E4F671F75B3744A42BE20F9A801856, DEFAULT_DATABASE = [GBUMATC], DEFAULT_LANGUAGE = [русский], CHECK_POLICY = OFF;
+

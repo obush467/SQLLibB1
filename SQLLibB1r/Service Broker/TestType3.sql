@@ -1,0 +1,4 @@
+﻿CREATE MESSAGE TYPE [TestType3]
+    AUTHORIZATION [dbo]
+    VALIDATION = NONE;
+

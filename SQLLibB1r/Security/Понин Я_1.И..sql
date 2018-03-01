@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [Понин Я.И.]
+    WITH PASSWORD = N'vgrikvrcn,{jepGhi+xs5tcamsFT7_&#$!~<|ypkwfqgvrTi', SID = 0x4128C46DDB62804C931C9A424435EFC5, DEFAULT_DATABASE = [GBUMATC], DEFAULT_LANGUAGE = [русский], CHECK_POLICY = OFF;
+

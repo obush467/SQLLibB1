@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [Хусаинова Е.Т.]
+    WITH PASSWORD = N'vgervrsckn{4jephGxtHyca|msFT7_&#$!~<e7ypbkwpfKqd', SID = 0x8AFE4DBBAAA8034E9741311D94DA143A, DEFAULT_DATABASE = [GBUMATC], DEFAULT_LANGUAGE = [русский], CHECK_POLICY = OFF;
+

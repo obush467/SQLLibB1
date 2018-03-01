@@ -1,0 +1,452 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>SQLLibB1r</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{02b15753-c6b2-4656-b4e1-4ca2846fd045}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql120DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>SQLLibB1r</RootNamespace>
+    <AssemblyName>SQLLibB1r</AssemblyName>
+    <ModelCollation>1049,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>Cyrillic_General_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+    <DefaultFileStreamFilegroup>filestream2</DefaultFileStreamFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="fias_Moscow\" />
+    <Folder Include="fias_Moscow\Tables\" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="data_mos_ru\" />
+    <Folder Include="data_mos_ru\Tables\" />
+    <Folder Include="dbo\FileTables\" />
+    <Folder Include="dbo\Views\" />
+    <Folder Include="Storage\" />
+    <Folder Include="Security\" />
+    <Folder Include="dbo\Functions\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="dbo\User Defined Types\" />
+    <Folder Include="Assemblies\" />
+    <Folder Include="Service Broker\" />
+    <Folder Include="dbo\XMLSchemaCollections\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="fias_Moscow\Tables\Stead.sql" />
+    <Build Include="dbo\Tables\МУ2017.sql" />
+    <Build Include="dbo\Tables\GU_zamechaniya_States.sql" />
+    <Build Include="data_mos_ru\Tables\OMK002_2013_1.sql" />
+    <Build Include="dbo\Tables\reestr_zamechaniya.sql" />
+    <Build Include="dbo\Tables\GUState_zam.sql" />
+    <Build Include="dbo\Tables\reestr_zamechaniya_log.sql" />
+    <Build Include="dbo\Tables\reestr_log.sql" />
+    <Build Include="dbo\Tables\gu_fil.sql" />
+    <Build Include="dbo\Tables\GUState.sql" />
+    <Build Include="dbo\Tables\gu_fil_not.sql" />
+    <Build Include="dbo\Tables\Organizations.sql" />
+    <Build Include="dbo\Tables\GU_zamechaniya_types.sql" />
+    <Build Include="dbo\Tables\reestr1.sql" />
+    <Build Include="dbo\Tables\gu_log.sql" />
+    <Build Include="dbo\Tables\GUState_types.sql" />
+    <Build Include="dbo\Tables\ГУ.sql" />
+    <Build Include="dbo\Tables\raion1.sql" />
+    <Build Include="dbo\Tables\tipdu.sql" />
+    <Build Include="dbo\Tables\GU_not_inserted_in_reestr.sql" />
+    <Build Include="dbo\Tables\DU_to_insert.sql" />
+    <Build Include="dbo\Tables\doljnosti.sql" />
+    <Build Include="dbo\Tables\gu.sql" />
+    <Build Include="dbo\Tables\standardValues.sql" />
+    <Build Include="dbo\Tables\GUPasssport_States.sql" />
+    <Build Include="dbo\Tables\Okrug1.sql" />
+    <Build Include="fias_Moscow\Tables\Object_log.sql" />
+    <Build Include="dbo\Tables\Проверка_паспортов.sql" />
+    <Build Include="dbo\Tables\Ground_Types.sql" />
+    <Build Include="dbo\Tables\GUPassports.sql" />
+    <Build Include="dbo\Tables\Проверка_паспортов_log.sql" />
+    <Build Include="dbo\Tables\GU_zamechaniya.sql" />
+    <Build Include="dbo\Tables\DUFiles_DataBase_log1.sql" />
+    <Build Include="dbo\Tables\AdminArea.sql" />
+    <Build Include="dbo\Tables\dom_type.sql" />
+    <Build Include="dbo\Tables\GUPassport_Sites.sql" />
+    <Build Include="data_mos_ru\Tables\AO.sql" />
+    <Build Include="data_mos_ru\Tables\MO_Type.sql" />
+    <Build Include="data_mos_ru\Tables\OMK002_2013_2.sql" />
+    <Build Include="data_mos_ru\Tables\TM_Type.sql" />
+    <Build Include="dbo\Tables\kFileInfoes.sql" />
+    <Build Include="dbo\Tables\reestr_old.sql" />
+    <Build Include="data_mos_ru\Tables\TMED.sql" />
+    <Build Include="data_mos_ru\Tables\UM_Type.sql" />
+    <Build Include="fias_Moscow\Tables\ActualStatus.sql" />
+    <Build Include="fias_Moscow\Tables\AddressObjectType.sql" />
+    <Build Include="fias_Moscow\Tables\StructureStatus.sql" />
+    <Build Include="fias_Moscow\Tables\CenterStatus.sql" />
+    <Build Include="dbo\Tables\__MigrationHistory.sql" />
+    <Build Include="fias_Moscow\Tables\CurrentStatus.sql" />
+    <Build Include="fias_Moscow\Tables\EstateStatus.sql" />
+    <Build Include="dbo\Tables\%27Реестр ДУ по ЦАО_%27.sql" />
+    <Build Include="data_mos_ru\Tables\AO_geojson.sql" />
+    <Build Include="dbo\Tables\ТехсостояниеГУ.sql" />
+    <Build Include="data_mos_ru\Tables\MO_geojson.sql" />
+    <Build Include="fias_Moscow\Tables\House.sql" />
+    <Build Include="fias_Moscow\Tables\HouseStateStatus.sql" />
+    <Build Include="fias_Moscow\Tables\IntervalStatus.sql" />
+    <Build Include="data_mos_ru\Tables\MO.sql" />
+    <Build Include="fias_Moscow\Tables\Landmark.sql" />
+    <Build Include="data_mos_ru\Tables\UM.sql" />
+    <Build Include="fias_Moscow\Tables\NormativeDocumentType.sql" />
+    <Build Include="fias_Moscow\Tables\OperationStatus.sql" />
+    <Build Include="dbo\Tables\test_table.sql" />
+    <Build Include="fias_Moscow\Tables\Object.sql" />
+    <Build Include="dbo\Tables\reestr_t.sql" />
+    <Build Include="dbo\Tables\adress.sql" />
+    <Build Include="dbo\Tables\nastroyki.sql" />
+    <Build Include="data_mos_ru\Tables\TM.sql" />
+    <Build Include="dbo\Tables\nas_punkt.sql" />
+    <Build Include="dbo\Tables\sotr.sql" />
+    <Build Include="fias_Moscow\Tables\HouseInterval.sql" />
+    <Build Include="dbo\Tables\МУ2016.sql" />
+    <Build Include="dbo\Tables\ГУ_log.sql" />
+    <Build Include="fias_Moscow\Tables\NormativeDocument.sql" />
+    <Build Include="dbo\Tables\Adress_datamosruAO.sql" />
+    <Build Include="fias_Moscow\Tables\Room.sql" />
+    <Build Include="dbo\FileTables\yyyyyy.sql" />
+    <Build Include="dbo\FileTables\DataBase.sql" />
+    <Build Include="dbo\Views\View_2.sql" />
+    <Build Include="dbo\Views\rz_zam3.sql" />
+    <Build Include="dbo\Views\rz_zam2.sql" />
+    <Build Include="dbo\Views\rz_dlina.sql" />
+    <Build Include="dbo\Views\rz_zam1.sql" />
+    <Build Include="dbo\Views\rz_podkluchenie.sql" />
+    <Build Include="dbo\Views\rz_pictogrammi.sql" />
+    <Build Include="dbo\Views\rz_vozmojnost_el_podkl.sql" />
+    <Build Include="dbo\Views\rz_vostanovl_fasad.sql" />
+    <Build Include="dbo\Views\rz_nesootv_kategorii.sql" />
+    <Build Include="dbo\Views\rz_nesootv_tip.sql" />
+    <Build Include="dbo\Views\rz_ustanovka_du.sql" />
+    <Build Include="dbo\Views\rz_nesootv_demontirovan.sql" />
+    <Build Include="dbo\Views\DUFiles.sql" />
+    <Build Include="dbo\Views\zam_Sending.sql" />
+    <Build Include="dbo\Views\Okrug.sql" />
+    <Build Include="dbo\Views\raion.sql" />
+    <Build Include="dbo\Views\RZ1.sql" />
+    <Build Include="dbo\Views\zam_noSending.sql" />
+    <Build Include="dbo\Views\proverkaGU.sql" />
+    <Build Include="dbo\Views\adresa.sql" />
+    <Build Include="dbo\Views\View_1.sql" />
+    <Build Include="dbo\Views\reestr.sql" />
+    <Build Include="dbo\Views\View_5.sql" />
+    <Build Include="dbo\Views\rz_zam4.sql" />
+    <Build Include="Storage\1.sql" />
+    <Build Include="Storage\test_catalog.sql" />
+    <Build Include="FullTextIndexes.sql" />
+    <Build Include="Storage\filestream1.sql" />
+    <Build Include="Storage\filestream2.sql" />
+    <Build Include="Storage\MEMORY_OPTIMIZED_DATA.sql" />
+    <Build Include="Storage\mem_mod.sql" />
+    <Build Include="Security\esn_viewers.sql" />
+    <Build Include="Security\dbase.sql" />
+    <Build Include="Security\base.sql" />
+    <Build Include="Security\user.sql" />
+    <Build Include="Security\user_1.sql" />
+    <Build Include="Security\maksimov.sql" />
+    <Build Include="Security\maksimov_1.sql" />
+    <Build Include="Security\Бушмакин.sql" />
+    <Build Include="Security\Бушмакин_1.sql" />
+    <Build Include="Security\Гость.sql" />
+    <Build Include="Security\Гость_1.sql" />
+    <Build Include="Security\Амосова Е.В..sql" />
+    <Build Include="Security\Амосова Е_1.В..sql" />
+    <Build Include="Security\Колбунцова М.В..sql" />
+    <Build Include="Security\Колбунцова М_1.В..sql" />
+    <Build Include="Security\Максимов С.В..sql" />
+    <Build Include="Security\Максимов С_1.В..sql" />
+    <Build Include="Security\Галиев В.И..sql" />
+    <Build Include="Security\Галиев В_1.И..sql" />
+    <Build Include="Security\Дубинин А.А..sql" />
+    <Build Include="Security\Дубинин А_1.А..sql" />
+    <Build Include="Security\Игнатов А.М..sql" />
+    <Build Include="Security\Игнатов А_1.М..sql" />
+    <Build Include="Security\Перевощиков С.А..sql" />
+    <Build Include="Security\Перевощиков С_1.А..sql" />
+    <Build Include="Security\Савчук В.С..sql" />
+    <Build Include="Security\Савчук В_1.С..sql" />
+    <Build Include="Security\Счастливцева С.А..sql" />
+    <Build Include="Security\Счастливцева С_1.А..sql" />
+    <Build Include="Security\Чернов И.В..sql" />
+    <Build Include="Security\Чернов И_1.В..sql" />
+    <Build Include="Security\Григорьев Я.А..sql" />
+    <Build Include="Security\Григорьев Я_1.А..sql" />
+    <Build Include="Security\Щербинина М.В..sql" />
+    <Build Include="Security\Щербинина М_1.В..sql" />
+    <Build Include="Security\Ней К.Н..sql" />
+    <Build Include="Security\Ней К_1.Н..sql" />
+    <Build Include="Security\Федосеева Л.Е..sql" />
+    <Build Include="Security\Федосеева Л_1.Е..sql" />
+    <Build Include="Security\Ямин Я.Ю..sql" />
+    <Build Include="Security\Ямин Я_1.Ю..sql" />
+    <Build Include="Security\Бороздин В.А..sql" />
+    <Build Include="Security\Бороздин В_1.А..sql" />
+    <Build Include="Security\Сотников С.А..sql" />
+    <Build Include="Security\Сотников С_1.А..sql" />
+    <Build Include="Security\Крылова Г.В..sql" />
+    <Build Include="Security\Крылова Г_1.В..sql" />
+    <Build Include="Security\Потаева В.В..sql" />
+    <Build Include="Security\Потаева В_1.В..sql" />
+    <Build Include="Security\Исаева Е.Н..sql" />
+    <Build Include="Security\Исаева Е_1.Н..sql" />
+    <Build Include="Security\Усков П.Ю..sql" />
+    <Build Include="Security\Усков П_1.Ю..sql" />
+    <Build Include="Security\Ломаева Н.Г..sql" />
+    <Build Include="Security\Ломаева Н_1.Г..sql" />
+    <Build Include="Security\Мамедов К.Ю..sql" />
+    <Build Include="Security\Мамедов К_1.Ю..sql" />
+    <Build Include="Security\Хохлов Д.С..sql" />
+    <Build Include="Security\Хохлов Д_1.С..sql" />
+    <Build Include="Security\Солодюк Е.И..sql" />
+    <Build Include="Security\Солодюк Е_1.И..sql" />
+    <Build Include="Security\Степаненко И.В..sql" />
+    <Build Include="Security\Степаненко И_1.В..sql" />
+    <Build Include="Security\Мышев А.Б..sql" />
+    <Build Include="Security\Мышев А_1.Б..sql" />
+    <Build Include="Security\Ковалев А.В.sql" />
+    <Build Include="Security\Ковалев А_1.В.sql" />
+    <Build Include="Security\Быков Е.М..sql" />
+    <Build Include="Security\Быков Е_1.М..sql" />
+    <Build Include="Security\Оборская Н.Е..sql" />
+    <Build Include="Security\Оборская Н_1.Е..sql" />
+    <Build Include="Security\Мешалкин А.А..sql" />
+    <Build Include="Security\Мешалкин А_1.А..sql" />
+    <Build Include="Security\Тимофеев Д.А..sql" />
+    <Build Include="Security\Тимофеев Д_1.А..sql" />
+    <Build Include="Security\Русак И.Б..sql" />
+    <Build Include="Security\Русак И_1.Б..sql" />
+    <Build Include="Security\Цветков А.Ю..sql" />
+    <Build Include="Security\Цветков А_1.Ю..sql" />
+    <Build Include="Security\Кильдишев А.С..sql" />
+    <Build Include="Security\Кильдишев А_1.С..sql" />
+    <Build Include="Security\Иваницын М.А..sql" />
+    <Build Include="Security\Иваницын М_1.А..sql" />
+    <Build Include="Security\Яблочник Е.А..sql" />
+    <Build Include="Security\Яблочник Е_1.А..sql" />
+    <Build Include="Security\Жаренова Е.И..sql" />
+    <Build Include="Security\Жаренова Е_1.И..sql" />
+    <Build Include="Security\Курцева И.С..sql" />
+    <Build Include="Security\Курцева И_1.С..sql" />
+    <Build Include="Security\Лукин В.В..sql" />
+    <Build Include="Security\Лукин В_1.В..sql" />
+    <Build Include="Security\Понин Я.И..sql" />
+    <Build Include="Security\Понин Я_1.И..sql" />
+    <Build Include="Security\Борский И.В..sql" />
+    <Build Include="Security\Борский И_1.В..sql" />
+    <Build Include="Security\Кряков Л.Н..sql" />
+    <Build Include="Security\Кряков Л_1.Н..sql" />
+    <Build Include="Security\Волкова Е.А..sql" />
+    <Build Include="Security\Волкова Е_1.А..sql" />
+    <Build Include="Security\Ладунский А.И..sql" />
+    <Build Include="Security\Ладунский А_1.И..sql" />
+    <Build Include="Security\Мураховская Е.С..sql" />
+    <Build Include="Security\Мураховская Е_1.С..sql" />
+    <Build Include="Security\Малых А.В..sql" />
+    <Build Include="Security\Малых А_1.В..sql" />
+    <Build Include="Security\Митителу П.Д..sql" />
+    <Build Include="Security\Митителу П_1.Д..sql" />
+    <Build Include="Security\Bushmakin.sql" />
+    <Build Include="Security\Bushmakin1.sql" />
+    <Build Include="Security\Bushmakin1_1.sql" />
+    <Build Include="Security\Хусаинова Е.Т..sql" />
+    <Build Include="Security\Хусаинова Е_1.Т..sql" />
+    <Build Include="Security\Рыжкова Т.Ф..sql" />
+    <Build Include="Security\Рыжкова Т_1.Ф..sql" />
+    <Build Include="Security\Сорокина Ю.А..sql" />
+    <Build Include="Security\Сорокина Ю_1.А..sql" />
+    <Build Include="Security\Савин К.М..sql" />
+    <Build Include="Security\Савин К_1.М..sql" />
+    <Build Include="Security\Петрусенко Н.А..sql" />
+    <Build Include="Security\Петрусенко Н_1.А..sql" />
+    <Build Include="Security\NT AUTHORITY_СЕТЬ.sql" />
+    <Build Include="Security\NT AUTHORITY_СЕТЬ_1.sql" />
+    <Build Include="Security\iisuser.sql" />
+    <Build Include="Security\MAKSIMOV_iisuser.sql" />
+    <Build Include="Security\NT AUTHORITY_IUSR.sql" />
+    <Build Include="Security\NT AUTHORITY_IUSR_1.sql" />
+    <Build Include="Security\NT AUTHORITY_LOCAL SERVICE.sql" />
+    <Build Include="Security\NT AUTHORITY_LOCAL SERVICE_1.sql" />
+    <Build Include="Security\NT AUTHORITY_NETWORK SERVICE.sql" />
+    <Build Include="Security\NT AUTHORITY_NETWORK SERVICE_1.sql" />
+    <Build Include="Security\NT AUTHORITY_Локальная учетная запись.sql" />
+    <Build Include="Security\NT AUTHORITY_Локальная учетная запись_1.sql" />
+    <Build Include="Security\NT AUTHORITY_система.sql" />
+    <Build Include="Security\NT AUTHORITY_система_1.sql" />
+    <Build Include="Security\NT AUTHORITY_СЛУЖБА.sql" />
+    <Build Include="Security\NT AUTHORITY_СЛУЖБА_1.sql" />
+    <Build Include="Security\IIS APPPool_tbo.sql" />
+    <Build Include="Security\IIS APPPOOL_tbo_1.sql" />
+    <Build Include="Security\IIS APPPool_db2015.sql" />
+    <Build Include="Security\IIS APPPOOL_db2015_1.sql" />
+    <Build Include="Security\IIS APPPool_sp2.sql" />
+    <Build Include="Security\IIS APPPOOL_sp2_1.sql" />
+    <Build Include="Security\RoleMemberships.sql" />
+    <Build Include="dbo\Functions\ObjectFullAddress3.sql" />
+    <Build Include="dbo\Functions\ObjectFullAddress2.sql" />
+    <Build Include="dbo\Functions\nasPunkt.sql" />
+    <Build Include="dbo\Functions\wordCount.sql" />
+    <Build Include="dbo\Functions\standardValue_value.sql" />
+    <Build Include="dbo\Functions\dom_korp_str_toString11.sql" />
+    <Build Include="dbo\Functions\compareByTokensBit.sql" />
+    <Build Include="dbo\Functions\GETDATEOFFSET.sql" />
+    <Build Include="dbo\Functions\standardValue.sql" />
+    <Build Include="dbo\Functions\geometryPointX_to_str.sql" />
+    <Build Include="dbo\Functions\geometryPointY_to_str.sql" />
+    <Build Include="dbo\Functions\geometryPointX_to_str1.sql" />
+    <Build Include="dbo\Functions\lrtrim_isnull.sql" />
+    <Build Include="dbo\Functions\dom_korp_str_toString.sql" />
+    <Build Include="dbo\Functions\currentUser_ID.sql" />
+    <Build Include="dbo\Functions\dom_korp_str_toStringSplit.sql" />
+    <Build Include="dbo\Functions\eq.sql" />
+    <Build Include="dbo\Functions\existZamechaniya_noustr.sql" />
+    <Build Include="dbo\Functions\existZamechaniya.sql" />
+    <Build Include="dbo\Functions\replaceToEnd.sql" />
+    <Build Include="dbo\Functions\replaceToEndObject.sql" />
+    <Build Include="dbo\Functions\ObjectFullAddress.sql" />
+    <Build Include="dbo\Functions\deleteDublSpace.sql" />
+    <Build Include="dbo\Functions\deleteDublSpaceNull.sql" />
+    <Build Include="dbo\Functions\str_to_geographyPoint.sql" />
+    <Build Include="dbo\Functions\geographyPoint_to_str.sql" />
+    <Build Include="dbo\Functions\geometryPoint.sql" />
+    <Build Include="dbo\Functions\dom_type_full.sql" />
+    <Build Include="dbo\Functions\kodDU.sql" />
+    <Build Include="dbo\Functions\dom_korp_str_toString_BTI.sql" />
+    <Build Include="dbo\Functions\ObjectFullAddress1.sql" />
+    <Build Include="dbo\Functions\kod_by_tip_DU.sql" />
+    <Build Include="dbo\Functions\bit_varchar_УстановленаНеУстановлена.sql" />
+    <Build Include="dbo\Functions\bit_varchar_ДаНет.sql" />
+    <Build Include="dbo\Functions\bit_nchar10_ДаНет.sql" />
+    <Build Include="dbo\Functions\bit_varchar_СоответствуетНеСоответствует.sql" />
+    <Build Include="dbo\Functions\dom_korp_str_toString_BTI_full.sql" />
+    <Build Include="dbo\Functions\bit_varchar_ТребуетсяНеТребуется.sql" />
+    <Build Include="dbo\Functions\varchar_bit_ДаНет.sql" />
+    <Build Include="dbo\Functions\varchar_bit_СоответствуетНеСоответствует.sql" />
+    <Build Include="dbo\Functions\varchar_bit_ТребуетсяНеТребуется.sql" />
+    <Build Include="dbo\Functions\varchar_bit_УстановленаНеУстановлена.sql" />
+    <Build Include="dbo\Functions\nchar10_bit_ДаНет.sql" />
+    <Build Include="dbo\Functions\eee1.sql" />
+    <Build Include="dbo\Functions\StreetNumbers.sql" />
+    <Build Include="dbo\Functions\compareByTokens.sql" />
+    <Build Include="dbo\Functions\fn_find_addr.sql" />
+    <Build Include="dbo\Functions\fn_find_id.sql" />
+    <Build Include="dbo\Functions\RegexDom.sql" />
+    <Build Include="dbo\Functions\fn_find_addr2.sql" />
+    <Build Include="dbo\Functions\fn_find_id2.sql" />
+    <Build Include="dbo\Functions\RegexDom1.sql" />
+    <Build Include="dbo\Functions\ConvertStringDelimsToTable.sql" />
+    <Build Include="dbo\Functions\eee.sql" />
+    <Build Include="dbo\Functions\ObjectFullAddress4.sql" />
+    <Build Include="dbo\Functions\Match.sql" />
+    <Build Include="dbo\Stored Procedures\updateProverkaGU.sql" />
+    <Build Include="dbo\Stored Procedures\updateGUStates.sql" />
+    <Build Include="dbo\Stored Procedures\find_reestr.sql" />
+    <Build Include="dbo\Stored Procedures\find_reestr_by_kod.sql" />
+    <Build Include="dbo\Stored Procedures\insertDU_by_table.sql" />
+    <Build Include="dbo\Stored Procedures\updateProverkaGU1.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Expertam.sql" />
+    <Build Include="dbo\Stored Procedures\updateГУ.sql" />
+    <Build Include="dbo\Stored Procedures\update_Okrug.sql" />
+    <Build Include="dbo\Stored Procedures\x__openXML2.sql" />
+    <Build Include="dbo\User Defined Types\intTable.sql" />
+    <Build Include="dbo\User Defined Types\tokenList.sql" />
+    <Build Include="dbo\User Defined Types\tokenListCompare.sql" />
+    <Build Include="Service Broker\TestContract.sql" />
+    <Build Include="Service Broker\TestContract1.sql" />
+    <Build Include="Service Broker\TestContract2.sql" />
+    <Build Include="Service Broker\TestContract3.sql" />
+    <Build Include="Service Broker\TestType.sql" />
+    <Build Include="Service Broker\TestType1.sql" />
+    <Build Include="Service Broker\TestType2.sql" />
+    <Build Include="Service Broker\TestType3.sql" />
+    <Build Include="Storage\666.sql" />
+    <Build Include="Storage\6666.sql" />
+    <Build Include="Service Broker\SourceQueue.sql" />
+    <Build Include="Service Broker\TargetQueue.sql" />
+    <Build Include="Service Broker\SourceQueue1.sql" />
+    <Build Include="Service Broker\SourceQueue3.sql" />
+    <Build Include="Service Broker\TargetQueue3.sql" />
+    <Build Include="Security\address.sql" />
+    <Build Include="Security\data_mos_ru.sql" />
+    <Build Include="Security\fias_Moscow.sql" />
+    <Build Include="Service Broker\SourceService.sql" />
+    <Build Include="Service Broker\TargetService.sql" />
+    <Build Include="Service Broker\SourceService1.sql" />
+    <Build Include="Service Broker\SourceService3.sql" />
+    <Build Include="Service Broker\TargetService3.sql" />
+    <Build Include="dbo\XMLSchemaCollections\AS_LANDMARK_2_250_04_04_01_01.sql" />
+    <Build Include="ExtendedProperties.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assemblies\SQLLibB1.dll" />
+    <None Include="Assemblies\sl1.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="SQLLibB1">
+      <HintPath>Assemblies\SQLLibB1.dll</HintPath>
+      <SqlAssemblyName>SQLLibB1</SqlAssemblyName>
+      <IsModelAware>True</IsModelAware>
+      <GenerateSqlClrDdl>False</GenerateSqlClrDdl>
+      <SqlOwnerName>dbo</SqlOwnerName>
+      <SqlPermissionSet>SAFE</SqlPermissionSet>
+    </Reference>
+    <Reference Include="sl1">
+      <HintPath>Assemblies\sl1.dll</HintPath>
+      <SqlAssemblyName>sl1</SqlAssemblyName>
+      <IsModelAware>True</IsModelAware>
+      <GenerateSqlClrDdl>False</GenerateSqlClrDdl>
+      <SqlOwnerName>dbo</SqlOwnerName>
+      <SqlPermissionSet>SAFE</SqlPermissionSet>
+    </Reference>
+  </ItemGroup>
+</Project>

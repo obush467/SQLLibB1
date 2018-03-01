@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [Счастливцева С.А.]
+    WITH PASSWORD = N'vg<rJ!vrcn{ojephxtca7|ypmsFT7_&#$!~<kwfqgvrimx e', SID = 0x485B07686B6F334A922942153106232D, DEFAULT_DATABASE = [GBUMATC], DEFAULT_LANGUAGE = [русский], CHECK_POLICY = OFF;
+

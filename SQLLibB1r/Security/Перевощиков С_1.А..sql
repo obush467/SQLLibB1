@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [Перевощиков С.А.]
+    WITH PASSWORD = N'vxg6rvrcn{jle>phx$tcia|LmsFT7_&#$!~<iypkLwfVQhqg', SID = 0x73E07AB2463528409B156B8A5DC2B70B, DEFAULT_DATABASE = [GBUMATC], DEFAULT_LANGUAGE = [русский], CHECK_POLICY = OFF;
+

@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [Сотников С.А.]
+    WITH PASSWORD = N'vgrvrcAn{{jepjh=uxHtca|bmsFT7_&#$!~<ycpkwfq_gvUr', SID = 0x37FC53778EA5374CAAE00AAAB8FC2DE4, DEFAULT_DATABASE = [GBUMATC], DEFAULT_LANGUAGE = [русский], CHECK_POLICY = OFF;
+

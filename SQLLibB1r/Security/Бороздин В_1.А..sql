@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [Бороздин В.А.]
+    WITH PASSWORD = N'v!Eqgrvrcn{je|ph}xt;ca|WmsFT7_&#$!~<ypksOtwdfqgY', SID = 0x6C004D46122B614BA194A4694CBDDE00, DEFAULT_DATABASE = [GBUMATC], DEFAULT_LANGUAGE = [русский], CHECK_POLICY = OFF;
+

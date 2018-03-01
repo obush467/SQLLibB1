@@ -1,0 +1,7 @@
+﻿CREATE TABLE [fias_Moscow].[EstateStatus] (
+    [ESTSTATID] INT           NOT NULL,
+    [NAME]      NVARCHAR (50) NOT NULL,
+    [SHORTNAME] NVARCHAR (50) NULL,
+    CONSTRAINT [PK_EstateStatus] PRIMARY KEY CLUSTERED ([ESTSTATID] ASC)
+);
+

@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [Бушмакин]
+    WITH PASSWORD = N'Muvgrzv@rc1@onO{DjephxtcmsFT7_&#$!~<toap|y#p%pkw', SID = 0x52721BAF841BB14BA5C73D01A3791D1B, DEFAULT_LANGUAGE = [русский], CHECK_POLICY = OFF;
+

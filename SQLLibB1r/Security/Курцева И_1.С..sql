@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [Курцева И.С.]
+    WITH PASSWORD = N'vwgrLv6rcycna+=t{jephxtdmsFT7_&#$!~<ca|ypQkwfqSg', SID = 0x0CD1FC6CC9A8E0418BB95D72837D2761, DEFAULT_DATABASE = [GBUMATC], DEFAULT_LANGUAGE = [русский], CHECK_POLICY = OFF;
+

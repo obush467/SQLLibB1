@@ -1,0 +1,27 @@
+﻿CREATE TABLE [dbo].[GUPassports] (
+    [id]             UNIQUEIDENTIFIER   CONSTRAINT [DF_GUPassport_id] DEFAULT (newid()) ROWGUIDCOL NOT NULL,
+    [prev]           UNIQUEIDENTIFIER   NULL,
+    [next]           UNIQUEIDENTIFIER   NULL,
+    [startdate]      DATE               CONSTRAINT [DF_GUPassport_startdate] DEFAULT (getdate()) NOT NULL,
+    [enddate]        DATE               NULL,
+    [insertdate]     DATETIMEOFFSET (7) CONSTRAINT [DF_GUPassport_insertdate] DEFAULT (sysdatetimeoffset()) NOT NULL,
+    [updatedate]     DATETIMEOFFSET (7) NULL,
+    [Sotr_ID]        UNIQUEIDENTIFIER   CONSTRAINT [DF_GUPassports_Sotr_ID] DEFAULT ([dbo].[currentUser_ID]()) NOT NULL,
+    [UNOM]           NVARCHAR (50)      NOT NULL,
+    [tsc]            ROWVERSION         NOT NULL,
+    [Adress_ID]      UNIQUEIDENTIFIER   NOT NULL,
+    [AdmidArea_ID]   UNIQUEIDENTIFIER   NOT NULL,
+    [WGS84]          [sys].[geography]  NULL,
+    [EGKO]           [sys].[geometry]   NULL,
+    [Ground_Type_ID] UNIQUEIDENTIFIER   NOT NULL,
+    [Visibility]     NVARCHAR (50)      NULL,
+    [Sidewalk_width] NVARCHAR (50)      NULL,
+    [Condition]      NVARCHAR (50)      NULL,
+    [Patency]        NVARCHAR (50)      NULL,
+    CONSTRAINT [PK_GUPassport] PRIMARY KEY CLUSTERED ([id] ASC),
+    CONSTRAINT [FK_GUPassports_Ground_Types] FOREIGN KEY ([Ground_Type_ID]) REFERENCES [dbo].[Ground_Types] ([id]) ON UPDATE CASCADE,
+    CONSTRAINT [FK_GUPassports_GUPassports] FOREIGN KEY ([id]) REFERENCES [dbo].[GUPassports] ([id]),
+    CONSTRAINT [FK_GUPassports_GUPassports1] FOREIGN KEY ([id]) REFERENCES [dbo].[GUPassports] ([id]),
+    CONSTRAINT [FK_GUPassports_sotr] FOREIGN KEY ([Sotr_ID]) REFERENCES [dbo].[sotr] ([Sotr_ID])
+);
+

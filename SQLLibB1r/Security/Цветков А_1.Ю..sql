@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [Цветков А.Ю.]
+    WITH PASSWORD = N'vgrvrcn{jceFZ#phxtca|UypmsFT7_&#$!~<_kwfqgyvrimz', SID = 0xECD74EFF0885F24490724A7358A62445, DEFAULT_DATABASE = [GBUMATC], DEFAULT_LANGUAGE = [русский], CHECK_POLICY = OFF;
+

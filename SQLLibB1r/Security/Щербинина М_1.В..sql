@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [Щербинина М.В.]
+    WITH PASSWORD = N'v|gryvrcn{+jye~p7hxtcah.msFT7_&#$!~<|ypSkwf2q_gx', SID = 0x47EA3115FED69442894264B48A23608D, DEFAULT_DATABASE = [GBUMATC], DEFAULT_LANGUAGE = [русский], CHECK_POLICY = OFF;
+

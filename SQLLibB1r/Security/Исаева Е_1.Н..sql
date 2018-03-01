@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [Исаева Е.Н.]
+    WITH PASSWORD = N'v>gr+vrcn{mjephxt3ca|FypmsFT7_&#$!~<kwfqgv?rim3z', SID = 0x04A5031DAEB7AD449753EA34400DE94F, DEFAULT_DATABASE = [GBUMATC], DEFAULT_LANGUAGE = [русский], CHECK_POLICY = OFF;
+

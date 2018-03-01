@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [user]
+    WITH PASSWORD = N'.vPgrvrcn{jephxtcTa|y9p1msFT7_&#$!~<kwfqfghvrmLi', SID = 0x44C7BC6E87E2704082D5BB2B94068140, DEFAULT_LANGUAGE = [русский], CHECK_POLICY = OFF;
+
