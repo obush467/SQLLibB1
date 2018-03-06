@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLLibB1", "SQLLibB1\SQLLib
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegExpCompile", "RegExpCompile\RegExpCompile.csproj", "{9B9B05FC-A2EA-48CD-924E-136F1E4C8579}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegExTest", "RegExTest\RegExTest.csproj", "{0FB0552F-EA53-4A0E-A7D5-A725F98531DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9B9B05FC-A2EA-48CD-924E-136F1E4C8579}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B9B05FC-A2EA-48CD-924E-136F1E4C8579}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B9B05FC-A2EA-48CD-924E-136F1E4C8579}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FB0552F-EA53-4A0E-A7D5-A725F98531DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FB0552F-EA53-4A0E-A7D5-A725F98531DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FB0552F-EA53-4A0E-A7D5-A725F98531DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FB0552F-EA53-4A0E-A7D5-A725F98531DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

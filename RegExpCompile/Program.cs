@@ -33,6 +33,22 @@ namespace RegExpCompile
             // Add info object to list of objects
             compilationList.Add(expr);
 
+            expr = new RegexCompilationInfo(@"^(?<number>\d{5}[Г|Д]У\d{6})(?<name>_[а-яА-Яa-zA-Z0-9]+)*_(?<date>\d{8}|\d{14})(?<filecounter>_\d{1,2})*$",
+                       RegexOptions.IgnoreCase | RegexOptions.CultureInvariant,
+                       "MATCFileBaseNameFull",
+                       "Utilities.RegularExpressions",
+                       true);
+            // Add info object to list of objects
+            compilationList.Add(expr);
+
+            expr = new RegexCompilationInfo(@"^(?<number>\d{5}[Г|Д]У\d{6})(?<name>_[а-яА-Яa-zA-Z0-9]+)*_(?<date>\d{8}|\d{14})(?<filecounter>_\d{1,2})*\.(?<extension>\w{0,4})$",
+           RegexOptions.IgnoreCase | RegexOptions.CultureInvariant,
+           "MATCFileNameFull",
+           "Utilities.RegularExpressions",
+           true);
+            compilationList.Add(expr);
+            // Add info object to list o
+
             // Define regular expression to validate format of email address
             expr = new RegexCompilationInfo(@"^(?("")(""[^""]+?""@)|(([0-9A-Z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9A-Z])@))" +
                        @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9A-Z][-\w]*[0-9A-Z]\.)+[A-Z]{2,6}))$",
