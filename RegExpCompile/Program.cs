@@ -33,7 +33,7 @@ namespace RegExpCompile
             // Add info object to list of objects
             compilationList.Add(expr);
 
-            expr = new RegexCompilationInfo(@"^(?<number>\d{5}[Г|Д]У\d{6})(?<name>_[а-яА-Яa-zA-Z0-9]+)*_(?<date>\d{8}|\d{14})(?<filecounter>_\d{1,2})*$",
+            expr = new RegexCompilationInfo(@"^(?<number>\d{5}[Г|Д]У\d{6})(?<name>_[а-яА-Яa-zA-Z0-9]+)*_(?<date>\d{8}|\d{14})*(?<filecounter>_\d{1,2})*$",
                        RegexOptions.IgnoreCase | RegexOptions.CultureInvariant,
                        "MATCFileBaseNameFull",
                        "Utilities.RegularExpressions",
@@ -41,7 +41,7 @@ namespace RegExpCompile
             // Add info object to list of objects
             compilationList.Add(expr);
 
-            expr = new RegexCompilationInfo(@"^(?<number>\d{5}[Г|Д]У\d{6})(?<name>_[а-яА-Яa-zA-Z0-9]+)*_(?<date>\d{8}|\d{14})(?<filecounter>_\d{1,2})*\.(?<extension>\w{0,4})$",
+            expr = new RegexCompilationInfo(@"^(?<number>\d{5}[Г|Д]У\d{6})(?<name>[а-яА-Яa-zA-Z0-9_]*)*(?<date>_\d{8}|\d{14})*(?<filecounter>_[a-zA-Z0-9]+)*\.(?<extension>[a-zA-Z0-9]{3,4})$",
            RegexOptions.IgnoreCase | RegexOptions.CultureInvariant,
            "MATCFileNameFull",
            "Utilities.RegularExpressions",

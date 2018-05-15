@@ -11,8 +11,8 @@ namespace RegExTest
         static void Main(string[] args)
         {
 
-            Utilities.RegularExpressions.MATCFileNameFull q = new Utilities.RegularExpressions.MATCFileNameFull();
-            var yyt = q.Matches("65454ГУ654321_ываыва_ываыва5456_654_апрпарпа_20185691_34.kjh");
+            SQLLibB1.RegEx rgex = new SQLLibB1.RegEx();
+            var yyt = SQLLibB1.RegEx.MATCFileNameFullExtension("65454ГУ654321_ываыва_ываыва5456_654_апрпарпа_20185691_3sfsdf4.kjh");
         }
     }
 }
