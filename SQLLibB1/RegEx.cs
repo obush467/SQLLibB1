@@ -174,7 +174,7 @@ namespace SQLLibB1
             }
         }
 
-        private static IEnumerable<MATCFileNameFullExtensoinResult> GetMATCFileNameFullExtensoinResult(string input)
+        public static IEnumerable<MATCFileNameFullExtensoinResult> GetMATCFileNameFullExtensoinResult(string input)
         {
             MATCFileNameFull q = new MATCFileNameFull();
             List<MATCFileNameFullExtensoinResult> result = new List<MATCFileNameFullExtensoinResult>();
@@ -283,9 +283,7 @@ namespace SQLLibB1
         {
             using (SqlConnection connection = new SqlConnection("context connection=true"))
             {
-                string sql = "SELECT top ";
-                sql = sql + Count.ToString();
-                sql= sql+ " fc.name,Hash,cast( fc.path_locator as varchar(1000)) path_locator FROM Files fc INNER JOIN FilesHash fch ON fc.path_locator = fch.path_locator WHERE NOT fc.name LIKE '%' + fch.Hash + '%' and (name LIKE '%паспорт%' OR name LIKE '%макет%')";
+                string sql = "SELECT fc.name,Hash,cast( fc.path_locator as varchar(1000)) path_locator FROM Files fc INNER JOIN FilesHash fch ON fc.path_locator = fch.path_locator WHERE NOT fc.name LIKE '%' + fch.Hash + '%' and (name LIKE '%паспорт%' OR name LIKE '%макет%')";
                 connection.Open();
                 MATCFileNameFull q = new MATCFileNameFull();
                 SqlDataAdapter daFiles = new SqlDataAdapter(sql, connection);

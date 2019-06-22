@@ -41,15 +41,21 @@ namespace RegExpCompile
             // Add info object to list of objects
             compilationList.Add(expr);
 
-            expr = new RegexCompilationInfo(@"^(?<number>\d{5}[Г|Д]У\d{6})(?<name>[а-яА-Яa-zA-Z0-9_]*)*(?<date>_\d{8}|\d{14})*(?<filecounter>_[a-zA-Z0-9]+)*\.(?<extension>[a-zA-Z0-9]{3,4})$",
+            expr = new RegexCompilationInfo(@"^(?<number>\d{5}[Г|Д]У\d{6})(?<name>_[а-яА-Я0-9_]+)*(?<date>_\d{8}|\d{14}})(?<filecounter>_[a-zA-Z0-9]+)*\.(?<extension>[a-zA-Z]{1,4})$",
            RegexOptions.IgnoreCase | RegexOptions.CultureInvariant,
            "MATCFileNameFull",
            "Utilities.RegularExpressions",
            true);
             compilationList.Add(expr);
-            // Add info object to list o
 
-            // Define regular expression to validate format of email address
+            expr = new RegexCompilationInfo(@"^(IMG|DSC|DCS|SAM).*\.(?<extension>[a-zA-Z]{3,4})$",
+           RegexOptions.IgnoreCase | RegexOptions.CultureInvariant,
+           "MATCFileNameFoto",
+           "Utilities.RegularExpressions",
+           true);
+            compilationList.Add(expr);
+
+
             expr = new RegexCompilationInfo(@"^(?("")(""[^""]+?""@)|(([0-9A-Z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9A-Z])@))" +
                        @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9A-Z][-\w]*[0-9A-Z]\.)+[A-Z]{2,6}))$",
                        RegexOptions.IgnoreCase | RegexOptions.CultureInvariant,

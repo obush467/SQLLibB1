@@ -68,17 +68,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FTDataSet.cs">
+      <DependentUpon>FTDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="FTDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FTDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="FTDataSet.xsc">
+      <DependentUpon>FTDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="FTDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>FTDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="FTDataSet.xss">
+      <DependentUpon>FTDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RegExpCompile\RegExpCompile.csproj">
-      <Project>{9b9b05fc-a2ea-48cd-924e-136f1e4c8579}</Project>
-      <Name>RegExpCompile</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SQLLibB1\SQLLibB1.csproj">
       <Project>{8a107d97-0bee-4102-9f9d-0b4f11e115d1}</Project>
       <Name>SQLLibB1</Name>
