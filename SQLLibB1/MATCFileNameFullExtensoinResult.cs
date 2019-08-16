@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SQLLibB1
+﻿namespace SQLLibB1
 {
-    internal struct MATCFileNameFullExtensoinResult
+    public class MATCFileNameFullExtensoinResult
     {
-        public MATCFileNameFullExtensoinResult(string UNOM, string Name, string Date, string Counter, string Extension, string inputName=null,string path_locator=null)
-        { _UNOM = UNOM;
+        public MATCFileNameFullExtensoinResult(string UNOM, string Name, string Date, string Counter, string Extension, string inputName = null, string path_locator = null)
+        {
+            _UNOM = UNOM;
             _Name = Name;
             _Date = Date;
             _Counter = Counter;

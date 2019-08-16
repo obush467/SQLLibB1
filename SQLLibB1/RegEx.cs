@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Data.Sql;
-using Microsoft.SqlServer.Server;
-using System.Data.SqlTypes;
-using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
+﻿using Microsoft.SqlServer.Server;
+using System;
 using System.Collections;
-using System.Diagnostics;
-using System.Linq;
-using Utilities.RegularExpressions;
-using System.Data.SqlClient;
+using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
+using System.Data.SqlTypes;
+using System.Linq;
+using System.Text.RegularExpressions;
+using Utilities.RegularExpressions;
 
 namespace SQLLibB1
 {
-    public class RegEx
+    public static class RegEx
     {
         [SqlFunction]
         public static SqlBoolean ExistMATCNumberRegEx(SqlString Input)
@@ -103,7 +99,7 @@ namespace SQLLibB1
             Regex rx = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
             return rx.Split(input);
         }
-        protected static void SplitRegExFillRow(Object obj, out string Word/*, out Nullable<int> Index*/)
+        public static void SplitRegExFillRow(Object obj, out string Word/*, out Nullable<int> Index*/)
         {
             if ((string)obj == "")
             { Word = null; }
@@ -154,7 +150,7 @@ namespace SQLLibB1
             string input = (Input.IsNull) ? string.Empty : Input.Value;
             return GetMATCFileNameFullExtensoinResult(input);
         }
-        protected static void MATCFileNameFullExtensionFillRow(Object obj, out string UNOM, out string Name, out string Date, out string Counter, out string Extension)
+        public static void MATCFileNameFullExtensionFillRow(Object obj, out string UNOM, out string Name, out string Date, out string Counter, out string Extension)
         {
             if (obj is MATCFileNameFullExtensoinResult)
             {
@@ -174,7 +170,7 @@ namespace SQLLibB1
             }
         }
 
-        private static IEnumerable<MATCFileNameFullExtensoinResult> GetMATCFileNameFullExtensoinResult(string input)
+        public static IEnumerable<MATCFileNameFullExtensoinResult> GetMATCFileNameFullExtensoinResult(string input)
         {
             MATCFileNameFull q = new MATCFileNameFull();
             List<MATCFileNameFullExtensoinResult> result = new List<MATCFileNameFullExtensoinResult>();
@@ -184,7 +180,7 @@ namespace SQLLibB1
                     string _name = null;
                     foreach (Capture cm in wm.Groups[2].Captures)
                     {
-                        _name = _name + cm.Value;
+                        _name += cm.Value;
                     }
                     result.Add(new MATCFileNameFullExtensoinResult(wm.Groups[1].ToString(), _name, wm.Groups[3].ToString(), wm.Groups[4].ToString(), wm.Groups[5].ToString()));
                 }
@@ -218,7 +214,7 @@ namespace SQLLibB1
 
                     foreach (Capture cm in wm.Groups[2].Captures)
                     {
-                        _name = _name + cm.Value;
+                        _name += cm.Value;
                     }
 
                 }
@@ -267,7 +263,7 @@ namespace SQLLibB1
             return _result;
         }
 
-        [SqlFunction(DataAccess=DataAccessKind.None,IsDeterministic =true,Name = "MATCFileNameFullExtensionExists")]
+        [SqlFunction(DataAccess = DataAccessKind.None, IsDeterministic = true, Name = "MATCFileNameFullExtensionExists")]
         public static SqlBoolean MATCFileNameFullExtensionExists(SqlString Input)
         {
             string input = (Input.IsNull) ? string.Empty : Input.Value;
@@ -283,9 +279,7 @@ namespace SQLLibB1
         {
             using (SqlConnection connection = new SqlConnection("context connection=true"))
             {
-                string sql = "SELECT top ";
-                sql = sql + Count.ToString();
-                sql= sql+ " fc.name,Hash,cast( fc.path_locator as varchar(1000)) path_locator FROM Files fc INNER JOIN FilesHash fch ON fc.path_locator = fch.path_locator WHERE NOT fc.name LIKE '%' + fch.Hash + '%' and (name LIKE '%паспорт%' OR name LIKE '%макет%')";
+                string sql = "SELECT fc.name,Hash,cast( fc.path_locator as varchar(1000)) path_locator FROM Files fc INNER JOIN FilesHash fch ON fc.path_locator = fch.path_locator WHERE NOT fc.name LIKE '%' + fch.Hash + '%' and (name LIKE '%паспорт%' OR name LIKE '%макет%')";
                 connection.Open();
                 MATCFileNameFull q = new MATCFileNameFull();
                 SqlDataAdapter daFiles = new SqlDataAdapter(sql, connection);
@@ -295,7 +289,7 @@ namespace SQLLibB1
                 SqlContext.Pipe.Send(str.PadRight(1000));
                 SqlCommand update = new SqlCommand("UPDATE Files SET name= @newname WHERE stream_id	= @path_locator", connection);
                 update.Parameters.Add("@newname", SqlDbType.NVarChar, 500);
-                update.Parameters.Add("@path_locator", SqlDbType.VarChar,1000);
+                update.Parameters.Add("@path_locator", SqlDbType.VarChar, 1000);
                 update.Prepare();
                 try
                 {
@@ -308,14 +302,14 @@ namespace SQLLibB1
                                 string _name = null;
                                 foreach (Capture cm in wm.Groups[2].Captures)
                                 {
-                                    _name = _name + cm.Value;
+                                    _name += cm.Value;
                                 }
                                 _result = wm.Groups[1].ToString() + _name + "_" + wm.Groups[3].ToString() + wm.Groups[4].ToString() + "_" + dr["Hash"].ToString() + "." + wm.Groups[5].ToString();
                                 update.Parameters["@newname"].Value = _result;
                                 update.Parameters["@path_locator"].Value = dr["path_locator"];
                                 update.ExecuteNonQuery();
                             }
-                        
+
                     };
                 }
                 finally

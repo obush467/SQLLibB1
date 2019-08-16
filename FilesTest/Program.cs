@@ -1,150 +1,475 @@
-﻿using System.Data;
-using System.Data.SqlClient;
-using System.Text.RegularExpressions;
+﻿using FilesTest.FTDataSetTableAdapters;
+using SQLLibB1;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.IO;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
 using Utilities.RegularExpressions;
 
 namespace FilesTest
 {
     class Program
     {
+        static Encoding enc8 = Encoding.Unicode;
         static void Main(string[] args)
         {
-            correctDateToFiles();
-            //            insertHashToFiles(); 
-        }
-        public static void correctDateToFiles()
-        {
-            using (SqlConnection connection = new SqlConnection("Server=MAKSIMOV; User Id=Бушмакин; Password=453459; Database=GBUMATC;"))
+            FTDataSet ds = new FTDataSet();
+            FileGroupTableAdapter fileGroups = new FileGroupTableAdapter();
+            fileGroups.Fill(ds.FileGroup);
+            //mainFileContainer_normalizationName();
+            //HashMD5();
+            /*CommonTableAdapter cta = new CommonTableAdapter();
+            cta.Delete_ActFiles_system_Query();
+            Console.WriteLine("Очищена ActFiles");
+            cta.Delete_Files4_system_Query();
+            Console.WriteLine("Очищена Files4");
+            cta.Delete_Files_system_Query();
+            Console.WriteLine("Очищена Files");
+            cta.Delete_mainFileContainer_system_Query();
+            Console.WriteLine("Очищена _mainFileContainer");
+            cta.Insert_Files_Hashes_Query();
+            cta.Insert_Files4_Hashes_Query();
+            cta.Insert_mainFileContainer_Hashes_Query();
+            cta.Insert_ActFiles_Hashes_Query();
+            cta.Insert_mainFileContainer_Hashes_Query();*/
+            ActFiles_normalizationName();
+            /*//insertHashToFiles();
+            mainFileContainer_insertFoto();
+            foreach (DataRow _fileGroup in ds.FileGroup)
             {
-                string sql = "SELECT f1.name,fh.Hash hash,FORMAT(f1.last_write_time,'yyyyMMdd') fdate,cast( f1.path_locator as varchar(1000)) path_locator FROM Files f INNER JOIN Installation i ON f.name=i.UNOM INNER JOIN Files f1 ON f1.parent_path_locator=f.path_locator INNER JOIN FilesHash fh ON f1.path_locator=fh.path_locator AND f1.name LIKE i.UNOM+'%' AND fh.FName IS NULL AND f1.name LIKE '%_паспорт_актуализированный_согл_%'";
-                connection.Open();
-                MATCFileNameFull q = new MATCFileNameFull();
-                SqlDataAdapter daFiles = new SqlDataAdapter(sql, connection);
-                DataTable tblFiles = new DataTable();
-                daFiles.Fill(tblFiles);
-                SqlCommand update = new SqlCommand("UPDATE Files SET name= @newname WHERE path_locator	= @path_locator", connection);
-                update.Parameters.Add("@newname", SqlDbType.NVarChar, 500);
-                update.Parameters.Add("@path_locator", SqlDbType.VarChar, 1000);
-                update.Prepare();
+                //insertHashToFiles4(_fileGroup["FileGroup"].ToString());
+                //correctDateToFiles(_fileGroup["FileGroup"].ToString());    
+                //insertHashTomainFileContainer(_fileGroup["FileGroup"].ToString());
+            }*/
+        }
 
-                SqlCommand updateHash = new SqlCommand("UPDATE FilesHash SET fname= @newfname WHERE path_locator= @path_locator", connection);
-                updateHash.Parameters.Add("@newfname", SqlDbType.NVarChar, 500);
-                updateHash.Parameters.Add("@path_locator", SqlDbType.VarChar, 1000);
-                updateHash.Prepare();
-
-                try
+        public static void insertHashToFiles4(string fileNamePart)
+        {
+            FTDataSet ds = new FTDataSet();
+            CommonTableAdapter upA = new CommonTableAdapter();
+            Files4forUpdateNameTableAdapter f4 = new Files4forUpdateNameTableAdapter();
+            CommonTableAdapter cta = new CommonTableAdapter();
+            f4.Fill(ds.Files4forUpdateName, fileNamePart);
+            try
+            {
+                foreach (DataRow dr in ds.Files4forUpdateName.Rows)
                 {
-                    foreach (DataRow dr in tblFiles.Rows)
+                    MATCFileNameFullExtensoinResult match = RegEx.GetMATCFileNameFullExtensoinResult(dr["name"].ToString()).FirstOrDefault();
+                    if (match != null)
                     {
                         string _result = null;
-                        foreach (Match wm in q.Matches(dr["name"].ToString()))
-                            if (wm.Groups.Count == 6 & wm.Groups[3].ToString() != dr["fdate"].ToString())
-                            {
-                                string _name = null;
-                                foreach (Capture cm in wm.Groups[2].Captures)
-                                {
-                                    _name = _name + cm.Value;
-                                }
-                                _result = wm.Groups[1].ToString() + _name + "_" + dr["fdate"].ToString() + "_" + dr["Hash"].ToString() + "." + wm.Groups[5].ToString();
-                                update.Parameters["@newname"].Value = _result;
-                                update.Parameters["@path_locator"].Value = dr["path_locator"];
-                                update.ExecuteNonQuery();
-                                updateHash.Parameters["@newfname"].Value = _name;
-                                updateHash.Parameters["@path_locator"].Value = dr["path_locator"];
-                                updateHash.ExecuteNonQuery();
-                            }
+                        _result = match.UNOM + match.Name + "_" + dr["fdate"].ToString() + "_" + dr["Hash"].ToString() + "." + match.Extension;
+                        if (dr["Name"].ToString() != _result)
+                        {
+                            dr.SetField<string>("Name", _result);
 
+                        };
                     };
                 }
-                finally
+            }
+            finally
+            {
+                if (ds.Files4forUpdateName.HasErrors)
                 {
-                    connection.Close();
+                }
+                else
+                    // If no errors, AcceptChanges.
+                    if (ds.Files4forUpdateName.GetChanges() != null)
+                {
+                    //ds.Files4forUpdateName.AcceptChanges();
+                    f4.Update(ds.Files4forUpdateName);
+                }
+
+            }
+        }
+
+        public static void Files4updateName_insertFoto(string fileNamePart)
+        {
+            MATCFileNameFull q = new MATCFileNameFull();
+            FTDataSet ds = new FTDataSet();
+            Files4forUpdateNameTableAdapter f4 = new Files4forUpdateNameTableAdapter();
+            string _name = "_фото";
+            f4.Fill(ds.Files4forUpdateName, null);
+            try
+            {
+                foreach (DataRow dr in ds.Files4forUpdateName.Rows)
+                {
+                    MATCFileNameFullExtensoinResult match = RegEx.GetMATCFileNameFullExtensoinResult(dr["name"].ToString()).FirstOrDefault();
+                    if (match != null && string.IsNullOrEmpty(match.Name))
+                    {
+                        string _result = null;
+                        _result = match.UNOM + _name + "_" + dr["fdate"].ToString() + "_" + dr["Hash"].ToString() + "." + match.Extension;
+                        if (dr["Name"].ToString() != _result)
+                        {
+                            dr.SetField<string>("Name", _result);
+                        };
+                    };
+                }
+            }
+            finally
+            {
+                if (ds.Files4forUpdateName.HasErrors)
+                {
+                }
+                else
+                    // If no errors, AcceptChanges.
+                    if (ds.Files4forUpdateName.GetChanges() != null)
+                {
+                    //ds.Files4forUpdateName.AcceptChanges();
+                    f4.Update(ds.Files4forUpdateName);
+                }
+
+            }
+        }
+
+        public static void mainFileContainer_insertFoto()
+        {
+            MATCFileNameFull q = new MATCFileNameFull();
+            FTDataSet ds = new FTDataSet();
+            mainFileContainer_for_updateNameTableAdapter f4 = new mainFileContainer_for_updateNameTableAdapter();
+            string _name = "_фото";
+            f4.Fill(ds.mainFileContainer_for_updateName);
+            try
+            {
+                var rr = ds.mainFileContainer_for_updateName.Where(selector =>
+                  {
+                      MATCFileNameFullExtensoinResult match1 = RegEx.GetMATCFileNameFullExtensoinResult(selector["name"].ToString()).FirstOrDefault();
+                      if (match1 != null && string.IsNullOrEmpty(match1.Name)) { return true; } else { return false; };
+                  });
+                foreach (DataRow dr in ds.mainFileContainer_for_updateName.Rows)
+                {
+                    MATCFileNameFullExtensoinResult match = RegEx.GetMATCFileNameFullExtensoinResult(dr["name"].ToString()).FirstOrDefault();
+                    if (match != null && string.IsNullOrEmpty(match.Name))
+                    {
+                        string _result = null;
+                        _result = match.UNOM + _name + "_" + dr["fdate"].ToString() + "_" + dr["Hash"].ToString() + "." + match.Extension;
+                        if (dr["Name"].ToString() != _result)
+                        {
+                            dr.SetField<string>("Name", _result);
+                        };
+                    };
+                }
+            }
+            finally
+            {
+                if (ds.mainFileContainer_for_updateName.HasErrors)
+                {
+                }
+                else
+                    // If no errors, AcceptChanges.
+                    if (ds.mainFileContainer_for_updateName.GetChanges() != null)
+                {
+                    //ds.Files4forUpdateName.AcceptChanges();
+                    f4.Update(ds.mainFileContainer_for_updateName);
+                }
+
+            }
+        }
+
+
+        public static void ActFiles_normalizationName()
+        {
+            MATCFileNameFull q = new MATCFileNameFull();
+            FTDataSet ds = new FTDataSet();
+            CommonTableAdapter cta = new CommonTableAdapter();
+            ActFilesforUpdateNameTableAdapter f4 = new ActFilesforUpdateNameTableAdapter();
+            f4.Fill(ds.ActFilesforUpdateName);
+            try
+            {
+                /*var rr = ds.ActFilesforUpdateName.Where(selector =>
+                {
+                    MATCFileNameFullExtensoinResult match1 = RegEx.GetMATCFileNameFullExtensoinResult(selector["name"].ToString()).FirstOrDefault();
+                    if (match1 != null && string.IsNullOrEmpty(match1.Name)) { return true; } else { return false; };
+                }).ToList();*/
+                foreach (DataRow dr in ds.ActFilesforUpdateName.Rows)
+                {
+                    string _result = null;
+                    MATCFileNameFullExtensoinResult match = RegEx.GetMATCFileNameFullExtensoinResult(dr["name"].ToString().Trim()).FirstOrDefault();
+                    if (match != null)
+                    {
+                        Console.WriteLine(dr["name"].ToString() + " добавляется");
+                        if (string.IsNullOrEmpty(match.Name))
+                        { _result = match.UNOM + "_фото_" + dr["fdate"].ToString() + "_" + dr["Hash"].ToString() + "." + match.Extension; }
+                        else
+                        { _result = match.UNOM + match.Name + "_" + dr["fdate"].ToString() + "_" + dr["Hash"].ToString() + "." + match.Extension; }
+                        if (dr["Name"].ToString() != _result)
+                        {
+                            //dr.SetField<string>("Name", _result);
+                            try
+                            {
+                                cta.Update_ActFiles_names_Query(_result, dr["path_locator"].ToString());
+                                Console.WriteLine(_result);
+                            }
+                            catch (Exception e)
+                            { Console.WriteLine(_result + e.Message); }
+                        };
+                    }
+                    else
+                    {
+                        _result = dr["UNOM"].ToString() + "_фото_" + dr["fdate"].ToString() + "_" + dr["Hash"].ToString() + "." + dr["file_type"].ToString();
+                        Console.WriteLine(dr["name"].ToString() + " добавляется");
+                        cta.Update_ActFiles_names_Query(_result, dr["path_locator"].ToString());
+                    };
+                }
+            }
+            finally
+            {
+                if (ds.ActFilesforUpdateName.HasErrors)
+                {
+                }
+                else
+                    // If no errors, AcceptChanges.
+                    if (ds.ActFilesforUpdateName.GetChanges() != null)
+                {
+                    //ds.Files4forUpdateName.AcceptChanges();
+                    f4.Update(ds.ActFilesforUpdateName);
+                }
+
+            }
+        }
+
+
+        public static void mainFileContainer_normalizationName()
+        {
+            MATCFileNameFull q = new MATCFileNameFull();
+            FTDataSet ds = new FTDataSet();
+            CommonTableAdapter cta = new CommonTableAdapter();
+            mainFileContainer_for_updateNameTableAdapter f4 = new mainFileContainer_for_updateNameTableAdapter();
+            f4.Connection.ConnectionString = "Data Source=MAKSIMOV;Initial Catalog=GBUMATC;Persist Security Info=True;Connection Timeout=50000000;User ID=Бушмакин;Password=453459";
+            FTDataSet.mainFileContainer_for_updateNameDataTable wtable = ds.mainFileContainer_for_updateName;
+            f4.Fill(wtable);
+            try
+            {
+                /*var rr = wtable.Where(selector =>
+                {
+                    MATCFileNameFullExtensoinResult match1 = RegEx.GetMATCFileNameFullExtensoinResult(selector["name"].ToString()).FirstOrDefault();
+                    if (match1 != null && string.IsNullOrEmpty(match1.Name)) { return true; } else { return false; };
+                }).ToList();*/
+                foreach (DataRow dr in wtable.Rows)
+                {
+                    string _result = null;
+                    MATCFileNameFullExtensoinResult match = RegEx.GetMATCFileNameFullExtensoinResult(dr["name"].ToString().Trim()).FirstOrDefault();
+                    if (match != null)
+                    {
+                        Console.WriteLine(dr["name"].ToString() + " добавляется");
+                        if (string.IsNullOrEmpty(match.Name))
+                        { _result = match.UNOM + "_фото_" + dr["fdate"].ToString() + "_" + dr["Hash"].ToString() + "." + match.Extension; }
+                        else
+                        { _result = match.UNOM + match.Name + "_" + dr["fdate"].ToString() + "_" + dr["Hash"].ToString() + "." + match.Extension; }
+                        if (dr["Name"].ToString() != _result)
+                        {
+                            dr.SetField<string>("Name", _result);
+                            try
+                            {
+                                //cta.Update_mainFileContainer_Query(_result, dr["path_locator"].ToString());
+                                Console.WriteLine(_result);
+                            }
+                            catch (Exception e)
+                            { Console.WriteLine(_result + e.Message); }
+                        };
+                    }
+                    else
+                    {
+                        //_result = dr["UNOM"].ToString() + "_фото_" + dr["fdate"].ToString() + "_" + dr["Hash"].ToString() + "." + dr["file_type"].ToString();
+                        Console.WriteLine(dr["name"].ToString() + " херня-с");
+                        //cta.Update_ActFiles_names_Query(_result, dr["path_locator"].ToString());
+                        //dr.SetField<string>("Name", _result);
+                    };
+                }
+            }
+            finally
+            {
+                if (wtable.HasErrors)
+                {
+                }
+                else
+                    // If no errors, AcceptChanges.
+                    if (wtable.GetChanges() != null)
+                {
+                    //ds.Files4forUpdateName.AcceptChanges();
+                    f4.Update(wtable);
+                }
+
+            }
+        }
+
+        public static void correctDateToFiles(string fileNamePart)
+        {
+            CommonTableAdapter upA = new CommonTableAdapter();
+            FTDataSet ds = new FTDataSet();
+            FilesforUpdateNameTableAdapter files = new FilesforUpdateNameTableAdapter();
+            files.Fill(ds.FilesforUpdateName);
+            MATCFileNameFull q = new MATCFileNameFull();
+            try
+            {
+                foreach (DataRow dr in ds.FilesforUpdateName.Rows)
+                {
+                    MATCFileNameFullExtensoinResult match = RegEx.GetMATCFileNameFullExtensoinResult(dr["name"].ToString()).FirstOrDefault();
+                    string _result = null;
+                    if (match != null)
+                    {
+                        _result = match.UNOM + match.Name + "_" + dr["fdate"].ToString() + match.Counter + "." + match.Extension;
+                        if (dr["name"].ToString() != _result)
+                        { dr["name"] = _result; }
+                    }
+                };
+            }
+            finally
+            {
+                if (ds.FilesforUpdateName.HasErrors)
+                { }
+                else // If no errors, AcceptChanges.
+
+                        if (ds.FilesforUpdateName.GetChanges() != null)
+                {
+                    files.Update(ds.FilesforUpdateName);
                 }
             }
         }
-        public static void insertHashTomainFileContainer()
-        {
-            using (SqlConnection connection = new SqlConnection("Server=MAKSIMOV; User Id=Бушмакин; Password=453459; Database=GBUMATC;"))
-            {
-                string sql = "SELECT fc.name,Hash,cast( fc.path_locator as varchar(1000)) path_locator FROM mainFileContainer fc INNER JOIN mainFileContainerHash fch ON fc.path_locator = fch.path_locator WHERE NOT fc.name LIKE '%' + fch.Hash + '%' and (name LIKE '%паспорт%' OR name LIKE '%макет%')";
-                connection.Open();
-                MATCFileNameFull q = new MATCFileNameFull();
-                SqlDataAdapter daFiles = new SqlDataAdapter(sql, connection);
-                DataTable tblFiles = new DataTable();
-                daFiles.Fill(tblFiles);
-                SqlCommand update = new SqlCommand("UPDATE mainFileContainer SET name= @newname WHERE path_locator	= @path_locator", connection);
-                update.Parameters.Add("@newname", SqlDbType.NVarChar, 500);
-                update.Parameters.Add("@path_locator", SqlDbType.VarChar, 1000);
-                update.Prepare();
-                try
-                {
-                    foreach (DataRow dr in tblFiles.Rows)
-                    {
-                        string _result = null;
-                        foreach (Match wm in q.Matches(dr["name"].ToString()))
-                            if (wm.Groups.Count == 6)
-                            {
-                                string _name = null;
-                                foreach (Capture cm in wm.Groups[2].Captures)
-                                {
-                                    _name = _name + cm.Value;
-                                }
-                                _result = wm.Groups[1].ToString() + _name + "_" + wm.Groups[3].ToString() + wm.Groups[4].ToString() + "_" + dr["Hash"].ToString() + "." + wm.Groups[5].ToString();
-                                update.Parameters["@newname"].Value = _result;
-                                update.Parameters["@path_locator"].Value = dr["path_locator"];
-                                update.ExecuteNonQuery();
-                            }
 
-                    };
-                }
-                finally
+        public static void insertHashTomainFileContainer(string fileNamePart)
+        {
+
+            FTDataSet ds = new FTDataSet();
+            mainFileContainer_for_updateNameTableAdapter files = new mainFileContainer_for_updateNameTableAdapter();
+            files.Fill(ds.mainFileContainer_for_updateName);
+            try
+            {
+                foreach (DataRow dr in ds.mainFileContainer_for_updateName.Rows)
                 {
-                    connection.Close();
+                    MATCFileNameFullExtensoinResult match = RegEx.GetMATCFileNameFullExtensoinResult(dr["name"].ToString()).FirstOrDefault();
+                    string _result = null;
+                    if (match != null)
+                    {
+                        _result = match.UNOM + match.Name + match.Date + "_" + dr["Hash"].ToString() + "." + match.Extension;
+                        if (dr["name"].ToString() != _result)
+                        { dr["name"] = _result; }
+                    }
+                };
+            }
+            finally
+            {
+                if (ds.mainFileContainer_for_updateName.HasErrors)
+                { }
+                else // If no errors, AcceptChanges.
+
+                        if (ds.mainFileContainer_for_updateName.GetChanges() != null)
+                {
+                    files.Update(ds.mainFileContainer_for_updateName);
                 }
             }
-        } 
+        }
+
         public static void insertHashToFiles()
         {
-            using (SqlConnection connection = new SqlConnection("Server=MAKSIMOV; User Id=Бушмакин; Password=453459; Database=GBUMATC;"))
+            FTDataSet ds = new FTDataSet();
+            FilesforUpdateNameTableAdapter files = new FilesforUpdateNameTableAdapter();
+            files.Fill(ds.FilesforUpdateName);
+            try
             {
-                string sql = "SELECT fc.name,Hash,cast( fc.path_locator as varchar(1000)) path_locator FROM Files fc INNER JOIN FilesHash fch ON fc.path_locator = fch.path_locator WHERE NOT fc.name LIKE '%' + fch.Hash + '%' and (name LIKE '%макет%' OR name LIKE '%макет%')";
-                connection.Open();
-                MATCFileNameFull q = new MATCFileNameFull();
-                SqlDataAdapter daFiles = new SqlDataAdapter(sql, connection);
-                DataTable tblFiles = new DataTable();
-                daFiles.Fill(tblFiles);
-                SqlCommand update = new SqlCommand("UPDATE Files SET name= @newname WHERE path_locator	= @path_locator", connection);
-                update.Parameters.Add("@newname", SqlDbType.NVarChar, 500);
-                update.Parameters.Add("@path_locator", SqlDbType.VarChar, 1000);
-                update.Prepare();
-                try
+                foreach (DataRow dr in ds.FilesforUpdateName.Rows)
                 {
-                    foreach (DataRow dr in tblFiles.Rows)
+                    MATCFileNameFullExtensoinResult match = RegEx.GetMATCFileNameFullExtensoinResult(dr["name"].ToString()).FirstOrDefault();
+                    string _result = null;
+                    if (match != null)
                     {
-                        string _result = null;
-                        foreach (Match wm in q.Matches(dr["name"].ToString()))
-                            if (wm.Groups.Count == 6)
-                            {
-                                string _name = null;
-                                foreach (Capture cm in wm.Groups[2].Captures)
-                                {
-                                    _name = _name + cm.Value;
-                                }
-                                _result = wm.Groups[1].ToString() + _name + "_" + wm.Groups[3].ToString() + wm.Groups[4].ToString() + "_" + dr["Hash"].ToString() + "." + wm.Groups[5].ToString();
-                                update.Parameters["@newname"].Value = _result;
-                                update.Parameters["@path_locator"].Value = dr["path_locator"];
-                                update.ExecuteNonQuery();
-                            }
+                        _result = match.UNOM + match.Name + match.Date + "_" + dr["Hash"].ToString() + "." + match.Extension;
+                        if (dr["name"].ToString() != _result)
+                        { dr["name"] = _result; }
+                    }
+                };
+            }
+            finally
+            {
+                if (ds.FilesforUpdateName.HasErrors)
+                { }
+                else // If no errors, AcceptChanges.
 
-                    };
-                }
-                finally
+                        if (ds.FilesforUpdateName.GetChanges() != null)
                 {
-                    connection.Close();
+                    files.Update(ds.FilesforUpdateName);
                 }
-            }}  
-                      
             }
         }
-    
+        public static void HashMD5()
+        {
+            DirectoryInfo di;
+            List<DirectoryInfo> dList = new List<DirectoryInfo>();
+            List<FileInfo> h;
+            DirectoryInfo _directory = new DirectoryInfo("Z:\\");
+            DirectoryInfo[] directories = _directory.GetDirectories();
+            foreach (DirectoryInfo dir in directories)
+            {
+                try
+                {
+                    MD5Calculate(dir.GetFiles("*", SearchOption.AllDirectories).ToList());
+                    if (dir.GetFiles().Count() == 0 & dir.GetDirectories().Count() == 0)
+
+                    { dir.Delete(); }
+                }
+                catch (Exception) { }
+            }
+        }
+
+        public static void MD5Calculate(List<FileInfo> files, int LevelParalellism = 3)
+        {
+            int n = 1;
+            ParallelOptions po = new ParallelOptions();
+            List<string> filenames = new List<string>();
+            po.MaxDegreeOfParallelism = LevelParalellism;
+            FTDataSet ds = new FTDataSet();
+            CommonTableAdapter ca = new CommonTableAdapter();
+            ///foreach (FileInfo _f in files) { filenames.Add(_f.FullName); }
+            //Parallel.ForEach<string>(filenames, po, f =>
+            foreach (FileInfo file in files)
+            {
+                //FileInfo file = new FileInfo(f);
+                if ((file.Attributes & FileAttributes.System) == FileAttributes.System
+                    || (file.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden
+                    || (file.Attributes & FileAttributes.Temporary) == FileAttributes.Temporary
+                   )
+                {
+                    try { file.Delete(); }
+                    catch (Exception e)
+                    { }
+                }
+                else
+                {
+                    MD5 md5 = MD5.Create();
+                    try
+                    {
+                        FileStream sr = file.OpenRead();
+                        byte[] srresult = new byte[sr.Length];
+                        sr.Read(srresult, 0, (int)sr.Length);
+                        sr.Close();
+                        byte[] hash = md5.ComputeHash(srresult);
+                        string Hash = BitConverter.ToString(hash).Replace("-", "");
+
+                        if (ca.mainFileContainer_ContentsHash(Hash).Value)
+                        {
+                            Console.WriteLine(file.FullName);
+                            file.Delete();
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                    }
+                    n++;
+                }
+            };
+        }
+
+
+
+    }
+}
+
+
+
+
+
 
